@@ -5,7 +5,6 @@
 ![Crates.io Total Downloads](https://img.shields.io/crates/d/decode)
 
 
-
 **A High-Performance Query Tool for JSON, YAML and TOML**
 
 `decode` is a command-line tool written in Rust that allows you to extract and transform data from JSON, YAML, and TOML using a powerful, JSONPath-like query syntax.
