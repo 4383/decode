@@ -1,6 +1,6 @@
 mod parser;
 mod engine;
-mod tests;  // Add the tests module
+mod tests;
 
 use anyhow::{Context, Result, anyhow};
 use clap::{Parser, ValueEnum};
