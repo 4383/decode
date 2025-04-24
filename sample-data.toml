@@ -1,0 +1,68 @@
+# Sample TOML configuration file
+
+title = "TOML Sample Configuration"
+version = "1.0.0"
+last_updated = 2025-04-24T10:30:00Z
+debug = false
+
+[owner]
+name = "Jane Doe"
+email = "jane@example.com"
+role = "Administrator"
+active = true
+
+[server]
+host = "api.example.com"
+port = 443
+ssl = true
+allowed_origins = ["example.com", "api.example.com", "*.example.org"]
+
+[database]
+driver = "postgresql"
+host = "db.internal"
+port = 5432
+name = "appdb"
+pool_size = 25
+timeout_seconds = 30.5
+
+[database.credentials]
+username = "app_user"
+password = "v3ry-s3cur3"
+connection_string = "postgres://app_user:v3ry-s3cur3@db.internal:5432/appdb"
+
+[cache]
+enabled = true
+
+[cache.redis]
+host = "redis.internal"
+port = 6379
+max_connections = 100
+
+[cache.memory]
+max_size_mb = 512
+ttl_seconds = 300
+
+[[services]]
+name = "authentication"
+url = "https://auth.example.com"
+timeout_ms = 500
+retry_attempts = 3
+
+[[services]]
+name = "payment"
+url = "https://payment.example.com"
+timeout_ms = 2000
+retry_attempts = 1
+
+[feature_flags]
+advanced_ui = true
+beta_features = false
+experimental = { enabled = false, debug_mode = true }
+
+[logging]
+level = "info"
+format = "json"
+output = [
+    { type = "file", path = "/var/log/app.log" },
+    { type = "stdout" }
+]

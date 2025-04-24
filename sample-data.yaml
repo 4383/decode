@@ -1,0 +1,61 @@
+server:
+  host: example.com
+  port: 8080
+  ssl: true
+  timeouts:
+    connect: 5
+    read: 10
+    write: 15
+
+database:
+  main:
+    driver: postgres
+    host: db.example.com
+    port: 5432
+    username: admin
+    password: s3cr3t
+    ssl_mode: require
+    max_connections: 20
+  replica:
+    driver: postgres
+    host: replica.example.com
+    port: 5432
+    username: readonly
+    password: r3adonlyp@ss
+    ssl_mode: require
+    max_connections: 10
+
+logging:
+  level: info
+  file: /var/log/app.log
+  rotate:
+    max_size: 100
+    max_backups: 5
+    max_age: 30
+
+cache:
+  type: redis
+  ttl: 300
+  hosts:
+    - redis1.example.com:6379
+    - redis2.example.com:6379
+  options:
+    pool_size: 10
+    min_idle: 2
+
+features:
+  advanced_search: true
+  user_profiles: true
+  notifications: false
+  beta_features: null
+
+rate_limits:
+  - path: /api/v1/search
+    limit: 100
+    period: minute
+  - path: /api/v1/users
+    limit: 20
+    period: minute
+  - path: /api/v1/admin
+    limit: 5
+    period: minute

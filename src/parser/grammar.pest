@@ -1,0 +1,45 @@
+WHITESPACE      = _{ " " | "\t" | "\n" }
+
+query           = { root? ~ (path | recursive_descent) }
+
+root            = { "$" | "root" }
+
+path            = { (dot_field | bracket_access | filter | recursive_wildcard)+ }
+
+recursive_descent = { ".." ~ field_accessor }
+
+field_accessor  = { ident | quoted_field }
+
+dot_field       = { "." ~ field }
+
+field           = _{ ident | quoted_field }
+
+quoted_field    = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+bracket_access  = { "[" ~ bracket_content ~ "]" }
+
+bracket_content = _{ multi_index | integer | string }
+
+integer         = @{ "-"? ~ ASCII_DIGIT+ }
+
+string          = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+multi_index     = { integer ~ ("," ~ integer)+ }
+
+recursive_wildcard = { "[" ~ "*" ~ "]" }
+
+filter          = { "[" ~ "?" ~ "(" ~ filter_expr ~ ")" ~ "]" }
+
+filter_expr     = { "@" ~ filter_path ~ comparator ~ literal }
+
+filter_path     = { (dot_field | bracket_access)* }
+
+comparator      = { "==" | "!=" | ">=" | "<=" | ">" | "<" }
+
+literal         = { string | integer | boolean | null }
+
+ident           = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+boolean         = { "true" | "false" }
+
+null            = { "null" }
